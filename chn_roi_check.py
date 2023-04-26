@@ -106,13 +106,3 @@ def chn_roi() :
     else :
         default_yesterday()
 
-# def schedulers():
-    #排程
-trigger = CronTrigger(day_of_week='mon-fri', hour=17, minute=22, second=0)
-trigger2 = CronTrigger(day_of_week='mon-fri', hour=17, minute=0, second=0)
-
-sched = BackgroundScheduler() # 背景執行之排程
-sched.add_job(chn_roi, trigger,id='chn_roi_ok')
-sched.add_job(chn_roi, trigger2,id='chn_roi_ok_2')
-
-sched.start() # 開始
