@@ -8,7 +8,6 @@ import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
-
 import psycopg2
 import pandas as pd
 from datetime import datetime,timedelta
