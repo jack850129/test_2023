@@ -1,3 +1,4 @@
+
 {
     "python.pythonPath": "C:\\Users\\2023030102\\Anaconda3python.exe",
     "python.linting.enabled": true,
@@ -12,4 +13,3 @@
         "editor.detectIndentation": true,
         "editor.tabSize": 4
     }
-}

@@ -1,3 +1,4 @@
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
@@ -76,4 +77,5 @@ trigger = CronTrigger(day_of_week='mon-fri', hour='16', minute="04", second=0)
 sched = BackgroundScheduler() # 背景執行之排程
 sched.add_job(index_update, trigger,id='index_update')
 
+>>>>>>> ea24becbba51c2541e840d1cd889cff5f1f6c1d0
 sched.start() # 開始
