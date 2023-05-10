@@ -2,6 +2,8 @@ import psycopg2
 from PyQt5.QtWidgets import QApplication, QSizePolicy, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QTextEdit, QTableWidget, QTableWidgetItem, QVBoxLayout
 import pandas as pd
 from PyQt5.QtCore import QSettings
+from db_para import sign_sql_chn
+from datetime import datetime,timedelta
 
 class SQLQueryApp(QWidget):
     def __init__(self):
@@ -70,22 +72,12 @@ class SQLQueryApp(QWidget):
         # 儲存帳號密碼
         self.save_credentials()
         # 建立連線
-        try:
-            conn = psycopg2.connect(
-                database='twn_prc',
-                user=username,
-                password=password,
-                host='pg-ndb-twnprc.tejwin.com',
-                port='5432'
-            )
-        except psycopg2.Error as e:
-            QMessageBox.critical(self, '連線失敗', '無法連線至資料庫: {}'.format(str(e)))
-            return
-
+        conn = sign_sql_chn(username,password)
+        today = datetime.today().strftime('%Y%m%d')    
         # 執行查詢
         try:
             cur = conn.cursor()
-            cur.execute('SELECT * FROM prc.stock_prc limit 10')
+            cur.execute(f'''select zdate,count(*),max(keyin) from  chn.prc.margin_cnmgd where zdate>='{str(today)}' group by zdate''')
             rows = cur.fetchall()
             # 將資料填入表格中
             columns = [desc[0] for desc in cur.description]
