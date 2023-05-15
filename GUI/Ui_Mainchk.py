@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Mainchk(object):
     def setupUi(self, Mainchk):
         Mainchk.setObjectName("Mainchk")
-        Mainchk.resize(547, 256)
+        Mainchk.resize(520, 294)
         self.centralwidget = QtWidgets.QWidget(Mainchk)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -74,7 +74,7 @@ class Ui_Mainchk(object):
         self.chk_tb.setHorizontalHeaderItem(2, item)
         self.chk_tb.horizontalHeader().setCascadingSectionResizes(True)
         self.chk_tb.horizontalHeader().setMinimumSectionSize(31)
-        self.chk_tb.horizontalHeader().setStretchLastSection(False)
+        self.chk_tb.horizontalHeader().setStretchLastSection(True)
         self.chk_tb.verticalHeader().setCascadingSectionResizes(False)
         self.horizontalLayout.addWidget(self.chk_tb)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
@@ -87,11 +87,11 @@ class Ui_Mainchk(object):
         _translate = QtCore.QCoreApplication.translate
         Mainchk.setWindowTitle(_translate("Mainchk", "MainWindow"))
         self.gb_country.setTitle(_translate("Mainchk", "國家"))
-        self.But_kor.setText(_translate("Mainchk", "台灣"))
-        self.But_jpn.setText(_translate("Mainchk", "中國"))
+        self.But_twn.setText(_translate("Mainchk", "台灣"))
+        self.But_chn.setText(_translate("Mainchk", "中國"))
         self.But_hkg.setText(_translate("Mainchk", "香港"))
-        self.But_chn.setText(_translate("Mainchk", "日本"))
-        self.But_twn.setText(_translate("Mainchk", "韓國"))
+        self.But_jpn.setText(_translate("Mainchk", "日本"))
+        self.But_kor.setText(_translate("Mainchk", "韓國"))
         item = self.chk_tb.horizontalHeaderItem(0)
         item.setText(_translate("Mainchk", "產品"))
         item = self.chk_tb.horizontalHeaderItem(1)
