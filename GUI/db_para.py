@@ -25,6 +25,8 @@ class Sql_Db_Login :
             return self.cursor
         except psycopg2.Error as e:
             print('連線失敗', '無法連線至資料庫: {}'.format(str(e)))
+            QMessageBox.warning( None, 'ERROR' , str(e))
+            return 
         else:
             return self.connection
 
@@ -41,6 +43,7 @@ class Sql_Db_Login :
             return self.cursor
         except psycopg2.Error as e:
             print('連線失敗', '無法連線至資料庫: {}'.format(str(e)))
+            QMessageBox.warning( None, 'ERROR' , str(e))            
         else:
             return self.connection
 
@@ -57,6 +60,7 @@ class Sql_Db_Login :
             return self.cursor
         except psycopg2.Error as e:
             print('連線失敗', '無法連線至資料庫: {}'.format(str(e)))
+            QMessageBox.warning( None, 'ERROR' , str(e))  
         else:
             return self.connection
         
@@ -73,6 +77,7 @@ class Sql_Db_Login :
             return self.cursor
         except psycopg2.Error as e:
             print('連線失敗', '無法連線至資料庫: {}'.format(str(e)))
+            QMessageBox.warning( None, 'ERROR' , str(e))  
         else:
             return self.connection
         
@@ -89,6 +94,7 @@ class Sql_Db_Login :
             return self.cursor
         except psycopg2.Error as e:
             print('連線失敗', '無法連線至資料庫: {}'.format(str(e)))
+            QMessageBox.warning( None, 'ERROR' , str(e))  
         else:
             return self.connection
 
@@ -97,7 +103,7 @@ if __name__ == '__main__':
     username = '2023030102'
     password = 'jack6025'
     db_login = Sql_Db_Login()
-    cursor = db_login.sign_sql_hkg(username, password)
+    cursor = db_login.sign_sql_chn(username, password)
     if cursor is not None:
         cursor.execute('SELECT * FROM prc.stock_prc limit 10')
         rows = cursor.fetchall()

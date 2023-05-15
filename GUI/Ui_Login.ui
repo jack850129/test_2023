@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Login</class>
+ <widget class="QMainWindow" name="Login">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>386</width>
+    <height>133</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton_signin">
+    <property name="geometry">
+     <rect>
+      <x>261</x>
+      <y>95</y>
+      <width>105</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>登入</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_account">
+    <property name="geometry">
+     <rect>
+      <x>39</x>
+      <y>25</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>帳號</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_account">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>25</y>
+      <width>216</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_password">
+    <property name="geometry">
+     <rect>
+      <x>39</x>
+      <y>60</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>密碼</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_password">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>60</y>
+      <width>216</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

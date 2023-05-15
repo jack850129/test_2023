@@ -1,0 +1,1 @@
+pyuic5 -x Ui_Login.ui -o Ui_Login.py

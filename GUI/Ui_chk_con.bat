@@ -1,0 +1,1 @@
+pyuic5 -x Ui_chk_con.ui -o Ui_chk_con.py

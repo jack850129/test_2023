@@ -1,108 +1,78 @@
 import psycopg2
-from PyQt5.QtWidgets import QApplication, QSizePolicy, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QTextEdit, QTableWidget, QTableWidgetItem, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QShortcut, QMainWindow, QSizePolicy, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QTextEdit, QTableWidget, QTableWidgetItem, QVBoxLayout
+from PyQt5 import QtWidgets
 import pandas as pd
-from PyQt5.QtCore import QSettings
-from db_para import sign_sql_chn
+from PyQt5.QtCore import QSettings, QRegExp
+from db_para import Sql_Db_Login
 from datetime import datetime,timedelta
-
-class SQLQueryApp(QWidget):
+from Ui_Login import Ui_Login
+from qt_material import apply_stylesheet
+from PyQt5.QtGui import QRegExpValidator,QKeySequence, QIcon
+import qt_material
+from Ui_Mainchk import Ui_Mainchk
+class MainWindowController(QtWidgets.QMainWindow):
     def __init__(self):
-        super().__init__()
+        super().__init__() # in python3, super(Class, self).xxx = super().xxx
+        self.ui = Ui_Login()
+        self.ui.setupUi(self)
+        self.setup_control()
+        self.add_shortcut()
+        self.setWindowTitle("維護登入")
+        self.setWindowIcon(QIcon("icon.png"))
 
-        # 設定視窗標題、大小、位置
-        self.setWindowTitle('SQL Query App')
-        self.setGeometry(100, 100, 600, 400)
+    def setup_control(self):
+        self.ui.pushButton_signin.clicked.connect(self.login_check)
+        self.ui.lineEdit_password.returnPressed.connect(self.ui.pushButton_signin.click)
+        self.ui.lineEdit_account.returnPressed.connect(self.ui.pushButton_signin.click)
+        self.ui.lineEdit_password.setEchoMode(QLineEdit.Password)
 
-        # 創建輸入框和標籤
-        self.username_label = QLabel('帳號:', self)
-        self.username_label.move(20, 20)
-        self.username_input = QLineEdit(self)
-        self.username_input.move(80, 20)
-        self.password_label = QLabel('密碼:', self)
-        self.password_label.move(20, 50)
-        self.password_input = QLineEdit(self)
-        self.password_input.move(80, 50)
-        self.password_input.setEchoMode(QLineEdit.Password)
-
-        # 載入儲存的帳號密碼
-        self.load_saved_credentials()
-
-        # 連接 returnPressed 信號
-        self.username_input.returnPressed.connect(self.run_query)
-        self.password_input.returnPressed.connect(self.run_query)
-
-        # 創建執行查詢按鈕
-        self.query_button = QPushButton('執行 SQL 查詢', self)
-        self.query_button.move(20, 90)
-        self.query_button.clicked.connect(self.run_query)
-
-        # 創建顯示查詢結果的文本框
-        self.result_textbox = QTextEdit(self)
-        self.result_textbox.setGeometry(50, 130, 500, 200)
-        self.result_textbox.setReadOnly(True)
-
-        # 創建顯示查詢結果的表格
-        self.result_table = QTableWidget(self)
-        self.result_table.setFixedSize(500, 200)
-        self.result_table.move(50, 130)
-
-        # 顯示視窗
-        self.show()
-
-    def load_saved_credentials(self):
-        settings = QSettings("MyCompany", "MyApp")
-        username = settings.value("username")
-        password = settings.value("password")
-
-        if username is not None:
-            self.username_input.setText(username)
-
-        if password is not None:
-            self.password_input.setText(password)
-
-    def save_credentials(self):
-        settings = QSettings('MyCompany', 'MyApp')
-        settings.setValue('username', self.username_input.text())
-        settings.setValue('password', self.password_input.text())
-
-    def run_query(self):
-        # 取得輸入框的值
-        username = self.username_input.text()
-        password = self.password_input.text()
         # 儲存帳號密碼
-        self.save_credentials()
-        # 建立連線
-        conn = sign_sql_chn(username,password)
-        today = datetime.today().strftime('%Y%m%d')    
-        # 執行查詢
-        try:
-            cur = conn.cursor()
-            cur.execute(f'''select zdate,count(*),max(keyin) from  chn.prc.margin_cnmgd where zdate>='{str(today)}' group by zdate''')
-            rows = cur.fetchall()
-            # 將資料填入表格中
-            columns = [desc[0] for desc in cur.description]
-            self.result_table.setColumnCount(len(columns))
-            self.result_table.setHorizontalHeaderLabels(columns)
-            self.result_table.setRowCount(len(rows))
-            for i, row in enumerate(rows):
-                for j, value in enumerate(row):
-                    self.result_table.setItem(i, j, QTableWidgetItem(str(value)))
-            # 調整表格大小
-            self.result_table.resizeColumnsToContents()
-            self.result_table.resizeRowsToContents()
-
-            # 設定欄位寬度
-            self.result_table.setColumnWidth(0, 150)
-            self.result_table.setColumnWidth(1, 100)
-            # 其他欄位依據需要自行設定
-            cur.close()
-        except psycopg2.Error as e:
-            QMessageBox.critical(self, '查詢失敗', '無法查詢資料: {}'.format(str(e)))
-        finally:
-            conn.close()
-
-
-if __name__ == '__main__':
-    app = QApplication([])
-    sql_query_app = SQLQueryApp()
-    app.exec_()
+        settings = QSettings("TEJ", "GUI")
+        savedAccount = settings.value("account")
+        savedPassword = settings.value("password")
+        if savedAccount is not None:
+            self.ui.lineEdit_account.setText(savedAccount)
+        if savedPassword is not None:
+            self.ui.lineEdit_password.setText(savedPassword)
+    # 無鎖定時，點擊Enter觸發登入
+    def add_shortcut(self):
+        shortcut = QShortcut(QKeySequence("Return"), self)
+        shortcut.activated.connect(self.login_check)   
+    # 登入確認檢查        
+    def login_check(self) :
+        username = self.ui.lineEdit_account.text()
+        password = self.ui.lineEdit_password.text()
+        if not username or not password:
+            QMessageBox.warning(self, 'ERROR' ,"帳號密碼不能為空")
+            return    
+        self.conn = psycopg2.connect(
+                database='chn',
+                user=username,
+                password=password,
+                host='pg-ndb-chn.tejwin.com',
+                port='5432'
+        )
+        
+        with self.conn.cursor() as cursor :
+            cursor.execute('select * from prc.stock_prc limit 10')
+            rows = cursor.fetchall()
+            self.conn.commit()
+            if len(rows) > 0 : 
+                print('OK')
+                
+            if not rows : 
+                print("ERROR") 
+                QMessageBox.warning(self, 'ERROR', "登入失敗")      
+        if username is not None and password is not None:          
+            settings = QSettings("TEJ", "GUI")
+            settings.setValue("account", username)
+            settings.setValue("password", password)
+                  
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    # Login = QtWidgets.QWidget()
+    window = MainWindowController()
+    apply_stylesheet(app, theme='light_cyan_500.xml', invert_secondary=True)
+    window.show()
+    sys.exit(app.exec_())
