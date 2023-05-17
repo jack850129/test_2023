@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
-    <height>256</height>
+    <width>613</width>
+    <height>276</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,14 +31,14 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QPushButton" name="But_kor">
+              <widget class="QPushButton" name="But_twn">
                <property name="text">
                 <string>台灣</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="But_jpn">
+              <widget class="QPushButton" name="But_chn">
                <property name="text">
                 <string>中國</string>
                </property>
@@ -52,14 +52,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="But_chn">
+              <widget class="QPushButton" name="But_jpn">
                <property name="text">
                 <string>日本</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="But_twn">
+              <widget class="QPushButton" name="But_kor">
                <property name="text">
                 <string>韓國</string>
                </property>

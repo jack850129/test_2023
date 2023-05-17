@@ -1,0 +1,9 @@
+國家,影響出貨產品,產品,table,檢查語法
+chn,融資融券可充抵保證金主檔,融資融券可充抵保證金主檔,chn.prc.margin_cnmgd,"""""""select zdate,count(*),max(keyin) from  
+chn.prc.margin_cnmgd
+where zdate>=current_date
+group by zdate order by zdate"""""""
+chn,融資融券交易標的主檔,融資融券交易標的主檔,chn.prc.margin_cnmtd,"""""""select zdate,count(*),max(keyin) from  
+chn.prc.margin_cnmtd
+where zdate>=current_date
+group by zdate order by zdate"""""""

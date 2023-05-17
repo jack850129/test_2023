@@ -1,13 +1,15 @@
 import psycopg2
-from PyQt5.QtWidgets import QApplication, QShortcut, QTableWidgetItem, QMainWindow, QSizePolicy, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QTextEdit, QTableWidget, QTableWidgetItem, QVBoxLayout
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+# from PyQt5.QtWidgets import QApplication, QShortcut, QTableWidgetItem, QMainWindow, QSizePolicy, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QTextEdit, QTableWidget, QTableWidgetItem, QVBoxLayout
 from PyQt5 import QtWidgets, QtCore
 import pandas as pd
-from PyQt5.QtCore import QSettings, QRegExp, QDate , QDateTime ,QTimer
+from PyQt5.QtCore import QSettings, QRegExp, QDate , QDateTime ,QTimer,QSortFilterProxyModel, QAbstractTableModel
 from db_para import Sql_Db_Login
 from datetime import datetime,timedelta
 from Ui_Login import Ui_Login
 from qt_material import apply_stylesheet
-from PyQt5.QtGui import QRegExpValidator,QKeySequence, QIcon
+# from PyQt5.QtGui import QRegExpValidator,QKeySequence, QIcon
 import qt_material
 from Ui_Mainchk import Ui_Mainchk
 class MainWindowController(QtWidgets.QMainWindow):
@@ -21,6 +23,7 @@ class MainWindowController(QtWidgets.QMainWindow):
 
 
     def setup_control(self):
+        self.ui.chk_tb.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_time)
         # 毫秒單位
