@@ -21,21 +21,21 @@ class MainWindowController(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.setup_control()
         self.setWindowTitle("檢查條件")
-        self.ui.tableWidget.resizeColumnsToContents()
+        self.ui.tableView.resizeColumnsToContents()
 
 
     def setup_control(self):
         # self.ui.tableWidget.clear()
         df = pd.read_csv('D:/test_2023/GUI/check_condition_GUI.csv', encoding='Big5')
-        self.ui.tableWidget.setRowCount(len(df))
-        self.ui.tableWidget.setColumnCount(len(df.columns))
+        self.ui.tableView.setRowCount(len(df))
+        self.ui.tableView.setColumnCount(len(df.columns))
 
         for i in range(len(df)) :
             for j in range(len(df.columns)) :
                 item = QTableWidgetItem(str(df.iloc[i,j]))
-                self.ui.tableWidget.setItem(i , j , item)
-        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.tableWidget.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
+                self.ui.tableView.setItem(i , j , item)
+        self.ui.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.tableView.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
 
 
         self.proxy_model = QSortFilterProxyModel()
