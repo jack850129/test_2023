@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookBook查詢</title>
+
+    <!-- 引入 CSS 檔案 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="searchForm">
+        <label for="categorySelect">查詢選單：</label>
+        <select id="categorySelect">
+            <option value="category">分類</option>
+            <option value="ingredient">食材</option>
+            <option value="cookbook">食譜</option>
+            <option value="chelf">主廚</option>
+        </select>
+    
+        <label for="queryInput"></label>
+        <input type="text" id="queryInput" placeholder="輸入名稱">
+    
+        <button type="button" onclick="fetchData()">查詢</button>
+    </div>
+    <div id="container">
+        <div class="right-block"></div>
+        <div id="resultArea"></div>
+    </div>
+
+
+    <script src="js/search.js"></script>
+</body>
+</html>
